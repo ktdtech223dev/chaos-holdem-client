@@ -2661,15 +2661,7 @@ function checkAchievements(){
   // Basic gameplay
   if(G.wins>=1)unlockAchievement('first_win');
   try{ChaosAchievements.onHandWin(G);}catch(e){}
-  if(G.round>0&&G.round%10===0&&!G.isBossFight){var rb=BOSSES.filter(function(b){return!G.bossesDefeated.includes(b.id);});if(rb.length>0){G.isBossFight=true;
-  if(G.currentBoss){
-    var _b=G.currentBoss;
-    _showPixelBossCutscene({name:_b.name,title:_b.title||"Poker Legend",
-      desc:(_b.flavor||"")+(_b.skills?" | "+_b.skills.join(" | "):""),
-      color:'#ef5350',reward:_b.reward?'+$'+_b.reward.chips+' on win':'',
-      onFight:function(){startBossFight();}});
-    return;
-  }G.currentBoss=rb[0];G.bossMod=null;log('\u2694\ufe0f BOSS — '+G.currentBoss.name,'chaos');setTimeout(function(){rebuildAppHTML();applyTableStyle();},400);}}
+  // Boss triggers handled by checkBossFight() in nextRound() — not here
   if(G.winStreakCurrent>=3)unlockAchievement('win_streak_3');
   if(G.winStreakCurrent>=5)unlockAchievement('win_streak_5');
   if(G.winStreakCurrent>=10)unlockAchievement('win_streak_10');
@@ -9097,6 +9089,9 @@ function showWhatsNewOverlay(){
   var whatsNewBtn=document.getElementById('whats-new-btn');
   if(whatsNewBtn){whatsNewBtn.style.animation='none';whatsNewBtn.style.opacity='0.6';}
   var updates=[
+    {v:'1.2.1',date:'2025',color:'#ef5350',items:[
+      'BOSS LOSS FIX — Losing a boss fight no longer traps you in an infinite loop at round 10',
+    ]},
     {v:'1.1.0',date:'2025',color:'#ffea00',items:[
       '8-BIT VISUAL OVERHAUL — Press Start 2P font, pixel canvas renders, CRT scanlines',
       'PIXEL BOSS CUTSCENES — All 28 bosses get dramatic full-screen pixel art cutscene',
@@ -9313,7 +9308,7 @@ function showLeaderboardOverlay(){
 // Checks GitHub Releases for newer version on launch.
 // Wire GITHUB_RELEASES_URL when repo is set up.
 // ════════════════════════════════════════════════════════════
-const CURRENT_VERSION = '1.2.0';
+const CURRENT_VERSION = '1.2.1';
 const GITHUB_RELEASES_URL = 'https://api.github.com/repos/ktdtech223dev/chaos-holdem-client/releases/latest';
 // e.g. 'https://api.github.com/repos/ktdtech223dev/chaos-holdem-client/releases/latest'
 
