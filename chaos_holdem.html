@@ -3857,7 +3857,7 @@ function showBossIntro(boss){
       ${boss.skills.map(s=>`<div class="boss-skill-chip">${s}</div>`).join('')}
     </div>
     <div style="font-size:11px;color:var(--muted);margin-top:14px;font-style:italic;animation:bossSubDrop 0.5s 1.5s both;">"${boss.flavor}"</div>
-    <div style="font-size:10px;color:rgba(255,100,100,0.7);margin-top:10px;letter-spacing:1px;animation:bossSubDrop 0.5s 1.8s both;">HEADS UP · NO LIVES AT STAKE · PLAY UNTIL CHIPS RUN OUT</div>
+    <div style="font-size:10px;color:rgba(255,100,100,0.7);margin-top:10px;letter-spacing:1px;animation:bossSubDrop 0.5s 1.8s both;">HEADS UP · LOSE AND YOUR RUN IS OVER · PLAY UNTIL CHIPS RUN OUT</div>
     <div style="animation:bossSubDrop 0.5s 2s both;margin-top:20px;">
       <button class="btn btn-allin" onclick="startBossFight()" style="font-size:18px;padding:12px 36px;letter-spacing:2px;">ACCEPT THE CHALLENGE</button>
     </div>
@@ -3881,11 +3881,11 @@ function endBossFight(playerWon){
     try { if(G.bossesDefeated.length>=BOSSES.length) NGame.unlockAchievement('ch_chaos_master'); } catch(e) {}
     showBossRewardScreen(boss,bonus);
   }else{
-    // Lost to boss — give minimum chips, resume normal play
-    G.chips=Math.max(G.chips,getBlind('bb')*4);
+    // Lost to boss — run over
     G.currentBoss=null;
-    log('Boss defeated you. Back to the grind...','bad');
-    startNewRound();
+    G.chips=0;G.lives=0;
+    log('Boss defeated you. Run over.','bad');
+    setTimeout(()=>showBustScreen(),800);
   }
 }
 function showBossRewardScreen(boss,bonus){
