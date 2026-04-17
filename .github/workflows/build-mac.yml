@@ -27,6 +27,8 @@ jobs:
         run: |
           DMG=$(find dist -name "*.dmg" | head -1)
           echo "Found DMG: $DMG"
-          gh release upload 1.2.0 "$DMG" --clobber
+          TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "1.2.1")
+          echo "Uploading to release: $TAG"
+          gh release upload "$TAG" "$DMG" --clobber
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
