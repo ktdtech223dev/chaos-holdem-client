@@ -1,0 +1,51 @@
+{
+  "name": "chaos-holdem",
+  "version": "1.2.0",
+  "description": "Chaos Hold'Em \u2014 The Better Poker Roguelike",
+  "author": "Keshawn",
+  "main": "main.js",
+  "scripts": {
+    "start": "npx electron .",
+    "build:win": "npx electron-builder --win portable",
+    "build:mac": "npx electron-builder --mac"
+  },
+  "build": {
+    "appId": "com.chaosholdem.game",
+    "productName": "Chaos Hold'Em",
+    "copyright": "Copyright \u00a9 2025",
+    "forceCodeSigning": false,
+    "publish": {
+      "provider": "github",
+      "owner": "ktdtech223dev",
+      "repo": "chaos-holdem-client"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "chaos_holdem.html",
+      "assets/**"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "assets/icon.ico",
+      "artifactName": "chaos-holdem.exe"
+    },
+    "mac": {
+      "target": "dmg",
+      "icon": "assets/icon.icns",
+      "identity": null,
+      "category": "public.app-category.games"
+    }
+  },
+  "devDependencies": {
+    "electron": "28.0.0",
+    "electron-builder": "^24.0.0"
+  }
+}
