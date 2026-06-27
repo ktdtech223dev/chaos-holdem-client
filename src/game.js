@@ -7751,6 +7751,16 @@ function showWhatsNewOverlay(){
   var whatsNewBtn=document.getElementById('whats-new-btn');
   if(whatsNewBtn){whatsNewBtn.style.animation='none';whatsNewBtn.style.opacity='0.6';}
   var updates=[
+    {v:'1.2.2',date:'2026',color:'#f0c040',items:[
+      'PREMIUM VISUAL OVERHAUL — new animations & textures across slots, roulette, crash, the poker table & menus',
+      'CINEMATIC BOSS INTROS — dramatic boss entrances with a gated start + a defeat flourish',
+      '8-BIT THEME TOGGLE — flip the retro pixel theme on/off in Settings',
+      'PRESTIGE / NEW GAME+ — replay at higher stakes for bonus XP and a gold frame',
+      'ROGUELIKE META — dynamic curse cap, ALCHEMY transmutation, boss rematches, mod synergies, difficulty stars',
+      'CREW UPGRADES — presence radar, quick-chat, wall filters/search, head-to-head matchups',
+      'COSMETICS — unlockable card backs & chip colors',
+      'BIG FIXES — fair multiplayer (correct hands + side pots), working economy upgrades/curses, anti-cheat & security',
+    ]},
     {v:'1.2.1',date:'2025',color:'#ef5350',items:[
       'BOSS LOSS FIX — Losing a boss fight no longer traps you in an infinite loop at round 10',
     ]},
@@ -7970,7 +7980,7 @@ function showLeaderboardOverlay(){
 // Checks GitHub Releases for newer version on launch.
 // Wire GITHUB_RELEASES_URL when repo is set up.
 // ════════════════════════════════════════════════════════════
-const CURRENT_VERSION = '1.2.1';
+const CURRENT_VERSION = '1.2.2';
 const GITHUB_RELEASES_URL = 'https://api.github.com/repos/ktdtech223dev/chaos-holdem-client/releases/latest';
 // e.g. 'https://api.github.com/repos/ktdtech223dev/chaos-holdem-client/releases/latest'
 

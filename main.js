@@ -33,7 +33,7 @@ function createWindow() {
     height: 900,
     minWidth: 900,
     minHeight: 650,
-    title: "Chaos Hold'Em v0.8.0",
+    title: "Chaos Hold'Em v1.2.2",
     backgroundColor: '#080810',
     autoHideMenuBar: true,
     fullscreen: mode === 'fullscreen',
