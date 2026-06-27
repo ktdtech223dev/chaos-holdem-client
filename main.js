@@ -77,7 +77,8 @@ function createWindow() {
   mainWindow.webContents.on('page-title-updated', (event, title) => {
     if (title === 'CHAOS_EXIT') { app.quit(); return; }
     if (title.startsWith('CHAOS_ALWAYS_ON_TOP:')) {
-      const val = title.includes(':on');
+      if (title !== 'CHAOS_ALWAYS_ON_TOP:on' && title !== 'CHAOS_ALWAYS_ON_TOP:off') return;
+      const val = title === 'CHAOS_ALWAYS_ON_TOP:on';
       mainWindow.setAlwaysOnTop(val);
       const s = getSavedSettings();
       s.alwaysOnTop = val;
@@ -86,6 +87,7 @@ function createWindow() {
     }
     if (title.startsWith('CHAOS_WINDOW_MODE:')) {
       const newMode = title.replace('CHAOS_WINDOW_MODE:', '').trim();
+      if (!['fullscreen','borderless','windowed'].includes(newMode)) return; // ignore unknown modes
       const s = getSavedSettings();
       s.mode = newMode;
       saveSettings(s);

@@ -1,0 +1,569 @@
+
+/* 8-BIT RETRO THEME — media="all" enables, "not all" disables. Toggled via Settings. */
+* { font-family: 'Press Start 2P', monospace !important; }
+
+/* Global 8-bit color palette */
+:root {
+  --px-black:   #0f0f23;
+  --px-dark:    #1a1a3e;
+  --px-mid:     #2d2d6e;
+  --px-blue:    #3d3d9f;
+  --px-cyan:    #00e5ff;
+  --px-green:   #00e676;
+  --px-yellow:  #ffea00;
+  --px-orange:  #ff6d00;
+  --px-red:     #ff1744;
+  --px-pink:    #f50057;
+  --px-purple:  #d500f9;
+  --px-white:   #e8e8ff;
+  --px-gray:    #606080;
+  --px-shadow:  4px 4px 0px rgba(0,0,0,0.8);
+}
+
+/* Body — dark CRT background */
+body {
+  background: var(--px-black) !important;
+  color: var(--px-white) !important;
+  cursor: crosshair !important;
+  overflow-x: hidden;
+}
+
+/* CRT scanline overlay */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0,0,0,0.15) 2px,
+    rgba(0,0,0,0.15) 4px
+  );
+  pointer-events: none;
+  z-index: 9998;
+}
+
+/* CRT vignette */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(ellipse at center, transparent 60%, rgba(0,0,0,0.5) 100%);
+  pointer-events: none;
+  z-index: 9997;
+}
+
+/* #app */
+#app {
+  background: var(--px-black) !important;
+}
+
+/* ── TYPOGRAPHY ─────────────────────────────── */
+/* Scale down text since Press Start 2P is wider */
+body { font-size: 7px !important; line-height: 1.6 !important; }
+
+/* Pixel text shadow for headings */
+.page-fade-in [style*="Bebas Neue"],
+[style*="font-size:48px"],
+[style*="font-size:44px"],
+[style*="font-size:40px"],
+[style*="font-size:36px"] {
+  font-size: 14px !important;
+  letter-spacing: 1px !important;
+  text-shadow: 3px 3px 0 rgba(0,0,0,0.8) !important;
+}
+
+[style*="font-size:28px"],[style*="font-size:26px"],[style*="font-size:24px"] {
+  font-size: 11px !important;
+}
+[style*="font-size:22px"],[style*="font-size:20px"],[style*="font-size:18px"] {
+  font-size: 9px !important;
+}
+[style*="font-size:16px"],[style*="font-size:15px"],[style*="font-size:14px"] {
+  font-size: 8px !important;
+}
+[style*="font-size:13px"],[style*="font-size:12px"],[style*="font-size:11px"],[style*="font-size:10px"] {
+  font-size: 7px !important;
+}
+[style*="font-size:9px"],[style*="font-size:8px"],[style*="font-size:7px"] {
+  font-size: 6px !important;
+}
+
+/* ── BUTTONS ─────────────────────────────────── */
+button, .btn {
+  border: 3px solid currentColor !important;
+  border-radius: 0 !important;
+  padding: 8px 14px !important;
+  font-size: 7px !important;
+  letter-spacing: 1px !important;
+  cursor: crosshair !important;
+  position: relative !important;
+  transition: none !important;
+  image-rendering: pixelated !important;
+}
+
+button:hover, .btn:hover {
+  filter: brightness(1.3) !important;
+  transform: translate(-2px, -2px) !important;
+  outline: 2px solid var(--px-white) !important;
+}
+button:active, .btn:active {
+  transform: translate(2px, 2px) !important;
+  filter: brightness(0.8) !important;
+}
+
+.btn-primary {
+  background: var(--px-blue) !important;
+  border-color: var(--px-cyan) !important;
+  color: var(--px-cyan) !important;
+}
+.btn-fold {
+  background: #3e0a0a !important;
+  border-color: var(--px-red) !important;
+  color: var(--px-red) !important;
+}
+.btn-check {
+  background: #0a3e1a !important;
+  border-color: var(--px-green) !important;
+  color: var(--px-green) !important;
+}
+.btn-raise {
+  background: #3e2a0a !important;
+  border-color: var(--px-yellow) !important;
+  color: var(--px-yellow) !important;
+}
+.btn-chaos {
+  background: #2a0a3e !important;
+  border-color: var(--px-purple) !important;
+  color: var(--px-purple) !important;
+}
+.btn-curse {
+  background: #3e0a3a !important;
+  border-color: var(--px-pink) !important;
+  color: var(--px-pink) !important;
+}
+.btn-menu {
+  background: #1a1a1a !important;
+  border-color: var(--px-gray) !important;
+  color: var(--px-white) !important;
+}
+
+/* ── PANELS ─────────────────────────────────── */
+.pause-panel, .achievements-panel, .shop-panel, .codex-panel, .curse-shop-panel {
+  background: var(--px-dark) !important;
+  border: 4px solid var(--px-yellow) !important;
+  padding: 20px !important;
+}
+
+/* Pixel-style border decoration */
+.pause-panel::before, .achievements-panel::before {
+  content: '▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓';
+  display: block;
+  font-size: 5px;
+  color: rgba(255,234,0,0.3);
+  letter-spacing: 0;
+  margin-bottom: 8px;
+}
+
+/* ── CARDS (Poker + BJ) ─────────────────────── */
+.card {
+  background: #e8e8e8 !important;
+  border: 3px solid #222 !important;
+  color: #111 !important;
+  font-size: 9px !important;
+  image-rendering: pixelated !important;
+}
+.card.red { color: #cc0000 !important; background: #fff0f0 !important; }
+.card.black { color: #111 !important; }
+.card.face-down {
+  background: var(--px-blue) !important;
+  border: 3px solid var(--px-cyan) !important;
+  background-image: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 4px,
+    rgba(0,230,255,0.15) 4px,
+    rgba(0,230,255,0.15) 8px
+  ) !important;
+}
+
+/* ── POKER TABLE ─────────────────────────────── */
+.poker-table-area {
+  background: #1a1a1a !important;
+  border: 4px solid var(--px-green) !important;
+}
+
+/* ── OVERLAYS ────────────────────────────────── */
+#overlay {
+  background: rgba(0,0,0,0.85) !important;
+}
+
+/* ── INPUTS ─────────────────────────────────── */
+input, select, textarea {
+  background: var(--px-black) !important;
+  border: 3px solid var(--px-cyan) !important;
+  color: var(--px-cyan) !important;
+  font-size: 8px !important;
+  padding: 6px !important;
+}
+
+/* ── PROGRESS BARS ───────────────────────────── */
+[style*="border-radius:3px"][style*="height:5px"],
+[style*="border-radius:2px"][style*="height:4px"],
+[style*="border-radius:2px"][style*="height:3px"] {
+  border-radius: 0 !important;
+  border: 1px solid currentColor !important;
+}
+
+/* ── GAME-SPECIFIC: CRASH ────────────────────── */
+#crash-canvas {
+  image-rendering: pixelated !important;
+  filter: none !important;
+}
+
+/* ── GAME-SPECIFIC: SLOTS ────────────────────── */
+#slot-reel-canvas-0, #slot-reel-canvas-1, #slot-reel-canvas-2,
+#slot-reel-canvas-3, #slot-reel-canvas-4 {
+  image-rendering: pixelated !important;
+}
+
+/* ── GAME-SPECIFIC: ROULETTE ─────────────────── */
+#roulette-wheel {
+  image-rendering: pixelated !important;
+  border: 4px solid var(--px-yellow) !important;
+}
+
+/* ── BLINKING CURSOR ANIMATION ───────────────── */
+@keyframes pixelBlink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+/* Active element indicator */
+button:focus::after {
+  content: '◄';
+  position: absolute;
+  right: -18px;
+  top: 50%;
+  transform: translateY(-50%);
+  animation: pixelBlink 0.8s step-end infinite;
+  font-size: 8px;
+  color: var(--px-yellow);
+}
+
+/* ── PIXEL SCROLLBAR ─────────────────────────── */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: var(--px-black); border-left: 2px solid var(--px-mid); }
+::-webkit-scrollbar-thumb { background: var(--px-blue); border: 1px solid var(--px-cyan); }
+
+/* ── MAIN MENU PIXEL STYLE ───────────────────── */
+.menu-card, .mode-card {
+  border: 3px solid var(--px-gray) !important;
+  background: var(--px-dark) !important;
+}
+.menu-card:hover, .mode-card:hover {
+  border-color: var(--px-yellow) !important;
+}
+
+/* ── ACHIEVEMENT ENTRIES ─────────────────────── */
+.achievement-entry {
+  border: 2px solid var(--px-mid) !important;
+  background: var(--px-dark) !important;
+}
+.achievement-entry.unlocked {
+  border-color: var(--px-yellow) !important;
+}
+
+/* ── CODEX ───────────────────────────────────── */
+.codex-entry {
+  border: 2px solid var(--px-mid) !important;
+  background: var(--px-dark) !important;
+}
+.codex-tab.active {
+  border-bottom: 3px solid var(--px-yellow) !important;
+  color: var(--px-yellow) !important;
+}
+
+/* ── SHOP ────────────────────────────────────── */
+.shop-item {
+  border: 2px solid var(--px-mid) !important;
+  background: var(--px-dark) !important;
+}
+.shop-item:hover { border-color: var(--px-yellow) !important; }
+.shop-item.cant-afford { opacity: 0.4 !important; }
+
+/* ── LEFT SIDEBAR ─────────────────────────────── */
+#menu-left-panel {
+  background: var(--px-black) !important;
+  border-right: 4px solid var(--px-mid) !important;
+}
+
+/* ── GLOBAL TICKER ───────────────────────────── */
+#gticker-bar {
+  background: var(--px-black) !important;
+  border-bottom: 2px solid var(--px-mid) !important;
+  font-size: 6px !important;
+}
+
+/* ── PIXEL CURSOR ─────────────────────────────── */
+a, label { cursor: crosshair !important; }
+
+/* ── 8-BIT TITLE ANIMATION ─────────────────────
+   Applied to the main CHAOS CASINO title */
+@keyframes pixelGlitch {
+  0%   { transform: translate(0); }
+  5%   { transform: translate(-3px, 0); filter: hue-rotate(0deg); }
+  10%  { transform: translate(3px, 0); filter: hue-rotate(90deg); }
+  15%  { transform: translate(0); filter: hue-rotate(0deg); }
+  100% { transform: translate(0); }
+}
+.pixel-glitch {
+  animation: pixelGlitch 4s step-end infinite !important;
+}
+
+/* ── PIXEL STAR BUTTON PULSE ─────────────────── */
+@keyframes pixelPulse {
+  0%,100% { border-color: var(--px-cyan); }
+  50%     { border-color: var(--px-yellow); }
+}
+.btn-primary { animation: pixelPulse 2s step-end infinite !important; }
+
+/* ── OVERRIDE specific dark backgrounds ────────── */
+[style*="background:#07050f"],
+[style*="background:rgba(5,4,10"],
+[style*="background:rgba(4,3,8"],
+[style*="background:rgba(6,5,14"] {
+  background: var(--px-black) !important;
+}
+
+[style*="background:rgba(0,0,0,0.5)"],
+[style*="background:rgba(0,0,0,0.4)"],
+[style*="background:rgba(0,0,0,0.3)"] {
+  background: var(--px-dark) !important;
+}
+
+/* Gold text → pixel yellow */
+[style*="color:var(--gold)"],
+[style*="color:#c9963a"],
+[style*="color:#e8b84a"],
+[style*="color:#a07828"] {
+  color: var(--px-yellow) !important;
+}
+
+/* Green text → pixel green */
+[style*="color:var(--green2)"],
+[style*="color:#27ae60"],
+[style*="color:#2ecc71"] {
+  color: var(--px-green) !important;
+}
+
+/* Red → pixel red */
+[style*="color:var(--red)"],
+[style*="color:#ef5350"],
+[style*="color:#c0392b"] {
+  color: var(--px-red) !important;
+}
+
+/* Muted → dim gray */
+[style*="color:var(--muted)"],
+[style*="color:rgba(255,255,255,0.3)"],
+[style*="color:rgba(255,255,255,0.2)"] {
+  color: var(--px-gray) !important;
+}
+
+/* Chaos purple */
+[style*="color:var(--chaos)"],
+[style*="color:#d83898"],
+[style*="color:#e040a0"] {
+  color: var(--px-pink) !important;
+}
+
+/* Blue accents */
+[style*="color:#4fc3f7"],
+[style*="color:#0088ff"] {
+  color: var(--px-cyan) !important;
+}
+
+/* Slot purple → pixel purple */
+[style*="color:#ab47bc"],
+[style*="color:#ce93d8"] {
+  color: var(--px-purple) !important;
+}
+
+/* Roulette green */
+[style*="color:#27ae60"] { color: var(--px-green) !important; }
+
+/* ── 8-BIT LETTER-SPACING RESET ─────────────── */
+/* Press Start 2P needs 0-1px spacing max */
+[style*="letter-spacing:3px"],
+[style*="letter-spacing:4px"],
+[style*="letter-spacing:2px"] {
+  letter-spacing: 1px !important;
+}
+
+/* ── PAGE TRANSITIONS: instant, no fade ─────── */
+.page-fade-in {
+  animation: none !important;
+  opacity: 1 !important;
+}
+@keyframes fadeIn { from{opacity:1} to{opacity:1} }
+
+/* ── PIXEL DIVIDERS ─────────────────────────── */
+hr, .pause-divider {
+  border: 0 !important;
+  border-top: 2px solid var(--px-mid) !important;
+  background: none !important;
+}
+
+/* ── CHECKBOX PIXEL STYLE ─────────────────────── */
+input[type="checkbox"] {
+  appearance: none;
+  width: 14px; height: 14px;
+  border: 2px solid var(--px-cyan) !important;
+  background: var(--px-black) !important;
+}
+input[type="checkbox"]:checked {
+  background: var(--px-cyan) !important;
+}
+
+/* ── RADIO BAR (music) ───────────────────────── */
+#radio-bar {
+  border-top: 2px solid var(--px-mid) !important;
+  background: var(--px-black) !important;
+}
+
+/* ── GRADIENT BACKGROUNDS → SOLID ────────────── */
+[style*="linear-gradient(135deg"],
+[style*="linear-gradient(180deg"] {
+  background: var(--px-dark) !important;
+}
+
+/* Keep game-specific neon gradients for buttons */
+button[onclick*="crashLaunch"] {
+  background: var(--px-red) !important;
+  border-color: #ff8888 !important;
+  color: #fff !important;
+}
+button[onclick*="crashCashOut"],
+button[onclick*="rouletteSpin"],
+button[onclick*="slotSpin"] {
+  background: var(--px-green) !important;
+  border-color: #88ff88 !important;
+  color: var(--px-black) !important;
+}
+button[onclick*="bjDeal"] {
+  background: var(--px-blue) !important;
+  border-color: var(--px-cyan) !important;
+  color: var(--px-cyan) !important;
+}
+
+
+/* ════════ PASS 2 — FULL 8-BIT POLISH ════════ */
+
+/* Per-game body classes */
+body.game-blackjack { --px-primary:#00e5ff;--px-bg:#001822; }
+body.game-slots      { --px-primary:#d500f9;--px-bg:#110020; }
+body.game-crash      { --px-primary:#ff1744;--px-bg:#200606; }
+body.game-roulette   { --px-primary:#00e676;--px-bg:#001a08; }
+
+/* Shop panel */
+.shop-panel,.curse-shop-panel {
+  background:#0a0a1e!important;
+  border:4px solid #ffea00!important;
+}
+.shop-item {
+  background:#0f0f23!important;
+  border:2px solid #2a2a6a!important;
+  cursor:crosshair!important;
+  transition:none!important;
+}
+.shop-item:hover {
+  border-color:#ffea00!important;
+  transform:translate(-2px,-2px)!important;
+  outline:1px solid #ffea0055!important;
+}
+.shop-item-name { font-size:7px!important; line-height:1.5!important; }
+.shop-item-desc { font-size:6px!important; color:#606080!important; line-height:1.6!important; }
+.shop-item-cost { font-size:8px!important; color:#ffea00!important; }
+.shop-item.cant-afford { opacity:.3!important; }
+.shop-title { font-size:11px!important; letter-spacing:2px!important; }
+.shop-sub { font-size:6px!important; color:#606080!important; }
+.curse-item { background:#0f000f!important; border:2px solid #660066!important; }
+.curse-item:hover { border-color:#ff00ff!important; transform:translate(-2px,-2px)!important; }
+.curse-label { font-size:6px!important; color:#ff00ff!important; }
+
+/* Pause panel */
+.pause-panel {
+  background:#0a0a1e!important;
+  border:4px solid #ffea00!important;
+}
+.pause-title {
+  font-size:11px!important;
+  color:#ffea00!important;
+  letter-spacing:3px!important;
+  text-shadow:2px 2px 0 #000!important;
+}
+.pause-menu-item {
+  font-size:7px!important;
+  letter-spacing:1px!important;
+  cursor:crosshair!important;
+  padding:7px 10px!important;
+  transition:none!important;
+  border:2px solid transparent!important;
+}
+.pause-menu-item:hover {
+  background:#1a1a3e!important;
+  border-color:#ffea00!important;
+  color:#ffea00!important;
+}
+.pause-divider { border-top:2px solid #1a1a4e!important; margin:6px 0!important; }
+
+/* Achievements */
+.achievement-entry {
+  background:#0a0a1e!important;
+  border:2px solid #1a1a4e!important;
+  padding:8px!important;
+}
+.achievement-entry.unlocked { border-color:#ffea00!important; }
+.achievement-name { font-size:7px!important; letter-spacing:1px!important; }
+.achievement-desc { font-size:6px!important; color:#606080!important; }
+
+/* Codex/Dossier */
+.codex-panel { border:4px solid #ffea00!important; background:#0a0a1e!important; }
+.codex-grid { display:grid!important; grid-template-columns:repeat(auto-fill,minmax(140px,1fr))!important; gap:6px!important; }
+.codex-entry { background:#0a0a1e!important; border:2px solid #1a1a4e!important; padding:8px!important; }
+.codex-entry:not(.undiscovered) { border-color:#2a2a6a!important; }
+.codex-entry.undiscovered { opacity:.3!important; }
+.codex-entry-icon { font-size:16px!important; margin-bottom:4px!important; }
+.codex-entry-name { font-size:6px!important; letter-spacing:1px!important; line-height:1.5!important; }
+.codex-entry-desc { font-size:5px!important; color:#606080!important; line-height:1.6!important; }
+.codex-tab {
+  padding:4px 10px!important; font-size:6px!important;
+  border:2px solid #2a2a6a!important; cursor:crosshair!important; color:#606080!important;
+}
+.codex-tab.active,.codex-tab:hover {
+  border-color:#ffea00!important; color:#ffea00!important; background:#0f0f28!important;
+}
+
+/* Pixel transitions */
+@keyframes pxIn { 0%{opacity:0;filter:brightness(2)} 40%{opacity:1;filter:brightness(1.3)} 100%{opacity:1;filter:brightness(1)} }
+.page-fade-in { animation:pxIn 0.12s steps(3) forwards!important; }
+#overlay>div { animation:pxIn 0.08s steps(2) forwards!important; }
+
+/* HUD elements */
+#crash-mult-display { font-size:44px!important; text-shadow:3px 3px 0 #000!important; letter-spacing:2px!important; }
+[style*="border-radius:50%"][style*="var(--red)"] { border-radius:0!important; outline:1px solid rgba(0,0,0,0.4)!important; }
+
+/* Pixel scrollbar */
+::-webkit-scrollbar { width:8px; height:8px; }
+::-webkit-scrollbar-track { background:#0a0a1e; border-left:2px solid #1a1a4e; }
+::-webkit-scrollbar-thumb { background:#2a2a6a; border:1px solid #3d3d9f; }
+::-webkit-scrollbar-thumb:hover { background:#3d3d9f; }
+
+/* All progress bars instant (no smooth transition) */
+[style*="transition:width"] { transition:none!important; }
+
+/* Pixel win flash */
+@keyframes pxWinFlash { 0%,100%{background:rgba(255,234,0,0)} 50%{background:rgba(255,234,0,0.08)} }
+

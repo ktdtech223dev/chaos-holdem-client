@@ -47,11 +47,29 @@ chaos-holdem-electron/
   dist/                 ← Built executables appear here after npm run build
 ```
 
+## Development (modular sources)
+
+The game ships as ONE self-contained file (`chaos_holdem.html`), but is now authored in modular sources
+under `src/`:
+
+```
+src/
+  index.shell.html   ← HTML shell with {{STYLES}} / {{EIGHTBIT}} / {{GAME}} placeholders
+  styles.css         ← main stylesheet
+  eightbit-theme.css ← the toggle-able 8-bit retro theme
+  game.js            ← all game logic/UI
+build.js             ← inlines src/ back into chaos_holdem.html
+```
+
+Workflow: **edit the files in `src/`**, then run `npm run build` to regenerate `chaos_holdem.html`.
+(`build.js --extract` re-splits the HTML back into `src/` if you ever edit the HTML directly.)
+The server (`../server.js`) has its own test suite — run `npm test` from the repo root.
+
 ## Updating the game
 
-1. Replace `chaos_holdem.html` with the new version
+1. Edit `src/` and run `npm run build` (or edit `chaos_holdem.html` then `node build.js --extract`)
 2. Bump the version in `package.json`
-3. Run `npm run build:win` to build a new installer
+3. Run `npm run build:win` (runs the inline build first, then packages the installer)
 4. Share the new .exe — friends reinstall over the old one
 
 ## Radio stations
